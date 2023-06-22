@@ -1,1 +1,1 @@
-import './js/image-finder';
+// import './js/image-finder';
