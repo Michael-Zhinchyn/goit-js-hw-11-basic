@@ -1,0 +1,1 @@
+{"mappings":"AAAaA,SAASC,cAAc,gBACpBD,SAASC,cAAc,YACnBD,SAASC,cAAc","sources":["src/js/image-finder.js"],"sourcesContent":["const form = document.querySelector('#search-form');\nconst gallery = document.querySelector('.gallery');\nconst loadMoreBtn = document.querySelector('.load-more');\n"],"names":["document","querySelector"],"version":3,"file":"index.0b5c454e.js.map"}
