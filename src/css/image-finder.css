@@ -15,7 +15,7 @@ button {
     line-height: 1.4px;
     color: #fff;
     cursor: pointer;
-    width: 200px;
+    width: 220px;
     height: 56px;
     text-decoration: none;
     transition: background-color var(--basic-transition);
@@ -23,8 +23,8 @@ button {
 
 .button-text {
     display: inline-block;
-    margin-right: 10px;
-    /* Відстань між текстом і SVG */
+    margin-right: 15px;
+    
 }
 
 .logo {
@@ -36,7 +36,7 @@ button {
 input {
     width: 350px;
     background-color: #030e8aa8;
-    color: white;
+    color: #ffffffbb;
     border-radius: 8px;
     padding-left: 15px;
 }
