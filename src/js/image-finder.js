@@ -8,8 +8,17 @@ const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '37718597-f2a776258a6c278a1ed771723';
-let page = 1;
 
-// form.addEventListener('submit', e => {
-//   e.preventDefault();
-// });
+function getPosts() {
+  const params = new URLSearchParams({
+    limit: 40,
+    page: 1,
+  });
+
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization,
+    },
+  };
+}
