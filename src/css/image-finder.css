@@ -2,14 +2,14 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    
+
 }
 
 button {
     margin-left: 20px;
-    background: #030e8aa8;
+    background: radial-gradient(#1B2735 0%, #090A0F 100%);
     border-radius: 8px;
-    border: none;
+    border: #151f8db0 1px solid;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.4px;
@@ -18,44 +18,68 @@ button {
     width: 220px;
     height: 56px;
     text-decoration: none;
-    transition: background-color var(--basic-transition);
+    transition: background-color var(--basic-transition), color var(--basic-transition);
+}
+
+button:hover {
+    background: #090f5325;
 }
 
 .button-text {
     display: inline-block;
     margin-right: 15px;
-    
 }
 
 .logo {
     vertical-align: middle;
 }
 
-
-
 input {
     width: 350px;
-    background-color: #030e8aa8;
+    background-color: #00000000;
     color: #ffffffbb;
     border-radius: 8px;
     padding-left: 15px;
+    border: #151f8db0 1px solid;
 }
 
-.search-form input::placeholder {
-    color: rgb(255, 255, 255);
+input:focus {
+    outline: #090f53 solid;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.847);
     font-size: 18px;
 }
 
-button:hover {
-    background: #0015ffa8;
-}
-
-
 .gallery {}
-
 
 .load-more {
     margin-top: 20px;
     width: 169px;
 }
 
+@media screen and (max-width: 600px) {
+    .search-form {
+        flex-direction: column;
+    }
+
+    button {
+        margin-left: 0;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .button-text {
+        margin-right: 0;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .load-more {
+        width: 100%;
+    }
+}

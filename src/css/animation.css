@@ -1,6 +1,6 @@
 html {
     height: 100%;
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
 }
 
@@ -31,12 +31,12 @@ html {
 }
 
 #title span {
-    background: -webkit-linear-gradient(white, #38495a);
+    font-size: smaller;
+    bottom: 0;
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0.384), #38495a53);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
-
 
 @keyframes animStar {
     from {
@@ -45,5 +45,14 @@ html {
 
     to {
         transform: translateY(-2000px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #title {
+        font-size: 30px;
+        letter-spacing: 5px;
+        margin-top: -30px;
+        padding-left: 5px;
     }
 }
