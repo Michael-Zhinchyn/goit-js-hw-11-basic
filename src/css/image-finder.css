@@ -62,7 +62,8 @@ input::placeholder {
 .photo-card {
     padding: 30px;
     margin: 10px;
-    border: #7277be5c 1px solid;
+    border-bottom: #7277be5c 1px solid;
+    border-top: #7277be5c 1px solid;
     border-radius: 20px;
     text-align: center;
 }
@@ -71,15 +72,19 @@ input::placeholder {
     color: #fff;
 }
 
-/* Make images responsive */
 .photo-card img {
     max-width: 100%;
     height: auto;
 }
 
 .load-more {
-    margin-top: 20px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
     width: 169px;
+    
+    
 }
 
 @media screen and (max-width: 600px) {
@@ -108,6 +113,8 @@ input::placeholder {
     }
 
     .load-more {
+        margin-top: 15px;
+        margin-bottom: 25px;
         width: 100%;
     }
 
