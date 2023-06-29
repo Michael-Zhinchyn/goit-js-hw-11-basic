@@ -8,6 +8,9 @@
 li,a  {
     list-style: none;
 }
+img {
+    border-radius: 10px;
+}
 
 body,
 html {
