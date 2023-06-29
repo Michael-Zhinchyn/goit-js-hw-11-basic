@@ -1,3 +1,4 @@
+
 .search-form {
     display: flex;
     justify-content: center;
@@ -77,6 +78,12 @@ input::placeholder {
 .photo-card img {
     max-width: 100%;
     height: auto;
+    object-fit: cover;
+    transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.photo-card img:hover {
+    transform: scale(1.04);
 }
 
 .load-more {
