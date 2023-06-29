@@ -9,6 +9,12 @@ const API_KEY = '37718597-f2a776258a6c278a1ed771723';
 // Ініціалізуємо змінні стану
 let searchQuery = '';
 let currentPage = 1;
+let total = null;
+let firstSearch = true;
+
+export function updateFirstSearch(state) {
+  firstSearch = state;
+}
 
 // Функція для переходу до наступної сторінки
 export function nextPage() {
@@ -37,6 +43,12 @@ export async function getImages() {
   // Виконуємо запит
   try {
     const response = await axios.get(`${BASE_URL}?${params}`);
+
+    total = response.data.total;
+    if (firstSearch) {
+      Notify.success(`Hooray! We found ${total} images.`);
+      updateFirstSearch(false);
+    }
 
     // Перетворюємо відповідь в бажаний формат
     let imagesData = response.data.hits.map(hit => ({

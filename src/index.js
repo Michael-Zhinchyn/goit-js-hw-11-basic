@@ -7,9 +7,11 @@ import {
   setSearchQuery,
   resetPage,
   nextPage,
+  updateFirstSearch,
 } from './js/apiService';
 import { createMarkup } from './js/markup';
 import { Notify } from 'notiflix';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 // Отримуємо доступ до елементів DOM
 const form = document.querySelector('#search-form');
@@ -38,6 +40,9 @@ function onSubmit(evt) {
   // Скидаємо номер сторінки до 1
   resetPage();
 
+  // Оновлюємо стан першого пошуку
+  updateFirstSearch(true);
+
   // Приховуємо кнопку "Load more" поки не отримаємо результати
   loadMoreBtn.hidden = true;
 
@@ -56,6 +61,12 @@ function onSubmit(evt) {
     loadMoreBtn.hidden = false;
     loadMoreBtn.style.display = 'block';
   });
+
+  // Очищуємо поле вводу
+  evt.target.searchQuery.value = '';
+
+  // Очищуємо галерею
+  gallery.innerHTML = '';
 }
 
 // Додаємо обробник подій для кнопки "Load more"
@@ -64,7 +75,18 @@ loadMoreBtn.addEventListener('click', onLoadMore);
 // Функція, яка запускається при натисканні кнопки "Load more"
 function onLoadMore() {
   // Завантажуємо наступну сторінку з результатами
-  nextPage().then(renderGallery);
+  nextPage().then(data => {
+    if (!data.length) {
+      Report.info(
+        "We're sorry",
+        "but you've reached the end of search results.",
+        'Okay'
+      );
+      loadMoreBtn.hidden = true;
+    } else {
+      renderGallery(data);
+    }
+  });
 }
 
 // Функція для додавання нових зображень в галерею
