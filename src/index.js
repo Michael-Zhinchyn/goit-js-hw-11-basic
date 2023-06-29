@@ -21,6 +21,11 @@ form.addEventListener('submit', onSubmit);
 
 function onSubmit(evt) {
   evt.preventDefault();
+
+  if (evt.target.searchQuery.value === '') {
+    Notify.warning('Input field is empty');
+    return;
+  }
   setSearchQuery(evt.target.searchQuery.value);
   resetPage();
   loadMoreBtn.hidden = true; // hide button before getting images

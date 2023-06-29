@@ -58,7 +58,7 @@ input::placeholder {
     grid-template-columns: repeat(2, 1fr);
     gap: 5px;
     padding-left: 15px;
-    padding-right: 1px;
+    padding-right: 15px;
 }
 
 .photo-card {
@@ -126,8 +126,5 @@ input::placeholder {
         grid-template-columns: 1fr;
     }
 
-    .photo-card {
-        margin: 10px 0;
-        
-    }
+   
 }
