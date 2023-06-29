@@ -2,11 +2,11 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    gap: 20px;
 
 }
 
 button {
-    margin-left: 20px;
     background: radial-gradient(#1B2735 0%, #090A0F 100%);
     border-radius: 8px;
     border: #151f8db0 1px solid;
@@ -52,7 +52,27 @@ input::placeholder {
     font-size: 18px;
 }
 
-.gallery {}
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    /* Регулює відстань між елементами сітки */
+}
+
+.photo-card {
+    padding: 30px;
+    margin: 10px;
+    border: #7277be5c 1px solid;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.info {
+    color: #fff;
+}
+
+
+
 
 .load-more {
     margin-top: 20px;
@@ -65,7 +85,7 @@ input::placeholder {
     }
 
     button {
-        margin-left: 0;
+        margin-left: 30px;
         margin-top: 20px;
         width: 100%;
     }
