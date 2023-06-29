@@ -2,14 +2,14 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 40px;
     gap: 20px;
-
 }
 
 button {
-    background: radial-gradient(#1B2735 0%, #090A0F 100%);
+    background: #090a0f00;
     border-radius: 8px;
-    border: #151f8db0 1px solid;
+    border: #1c27a2e1 1px solid;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.4px;
@@ -18,11 +18,12 @@ button {
     width: 220px;
     height: 56px;
     text-decoration: none;
-    transition: background-color var(--basic-transition), color var(--basic-transition);
+    transition: color var(--basic-transition), border var(--basic-transition);
 }
 
 button:hover {
     background: #090f5325;
+    border-color: #2d3ce2;
 }
 
 .button-text {
@@ -40,15 +41,15 @@ input {
     color: #ffffffbb;
     border-radius: 8px;
     padding-left: 15px;
-    border: #151f8db0 1px solid;
+    border: #1c27a2e1 1px solid;
 }
 
 input:focus {
-    outline: #090f53 solid;
+    outline: #2d3ce2 1px solid;
 }
 
 input::placeholder {
-    color: rgba(255, 255, 255, 0.847);
+    color: rgb(255, 255, 255);
     font-size: 18px;
 }
 
@@ -56,7 +57,6 @@ input::placeholder {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 5px;
-    /* Регулює відстань між елементами сітки */
 }
 
 .photo-card {
@@ -71,8 +71,11 @@ input::placeholder {
     color: #fff;
 }
 
-
-
+/* Make images responsive */
+.photo-card img {
+    max-width: 100%;
+    height: auto;
+}
 
 .load-more {
     margin-top: 20px;
@@ -82,10 +85,13 @@ input::placeholder {
 @media screen and (max-width: 600px) {
     .search-form {
         flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        margin-bottom: 0px;
     }
 
     button {
-        margin-left: 30px;
+        margin-left: 0;
         margin-top: 20px;
         width: 100%;
     }
@@ -97,9 +103,21 @@ input::placeholder {
 
     input {
         width: 100%;
+        font-size: 22px;
+        height: 50px;
     }
 
     .load-more {
         width: 100%;
+    }
+
+    .gallery {
+        padding: 10px;
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card {
+        margin: 10px 0;
+        
     }
 }
