@@ -33,6 +33,7 @@ button:hover {
 }
 
 .logo {
+    border-radius: 0;
     vertical-align: middle;
 }
 
