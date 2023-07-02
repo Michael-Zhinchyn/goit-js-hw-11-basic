@@ -104,7 +104,7 @@ function renderGallery(data) {
 // При завантаженні сторінки
 window.onload = function () {
   // Перевіряємо, чи сторінка була перезавантажена
-  if (performance.navigation.type === 1) {
+  if (performance.getEntriesByType('navigation')[0].type === 'reload') {
     // Якщо сторінка була перезавантажена, перевіряємо, чи є URL в localStorage
     if (localStorage.getItem('previousPage')) {
       // Якщо є URL в localStorage, перенаправляємо користувача на цю сторінку
