@@ -46,7 +46,6 @@ export async function getImages() {
 
     total = response.data.total;
     if (firstSearch) {
-      Notify.success(`Hooray! We found ${total} images.`);
       updateFirstSearch(false);
     }
 
