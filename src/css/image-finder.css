@@ -7,6 +7,17 @@
     gap: 20px;
 }
 
+.back-link {
+    position: relative;
+    top: 4%;
+    left: 5%;
+    color: white;
+}
+
+.back-link:hover {
+    color: #2d3ce2;
+}
+
 button {
     background: #090a0f00;
     border-radius: 8px;
