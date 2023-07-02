@@ -57,7 +57,7 @@ input::placeholder {
 
 .gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 5px;
     padding-left: 15px;
     padding-right: 15px;
@@ -66,9 +66,6 @@ input::placeholder {
 .photo-card {
     padding: 30px;
     margin: 10px;
-    border-bottom: #7277be84 1px solid;
-    border-top: #7277be82 1px solid;
-    border-radius: 20px;
     text-align: center;
 }
 
