@@ -1,24 +1,21 @@
-// Імпортуємо необхідні бібліотеки
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-// Оголошуємо базові константи для API
-const BASE_URL = 'https://pixabay.com/api/';
-const API_KEY = '37718597-f2a776258a6c278a1ed771723';
-
-// Ініціалізуємо змінні стану
+let BASE_URL = 'https://pixabay.com/api/';
+let API_KEY = '37718597-f2a776258a6c278a1ed771723';
 let searchQuery = '';
 let currentPage = 1;
 let total = null;
 let firstSearch = true;
 
+// Функція, що оновлює стан першого пошуку
 export function updateFirstSearch(state) {
   firstSearch = state;
 }
 
 // Функція для переходу до наступної сторінки
 export function nextPage() {
-  currentPage += 1;
+  currentPage = currentPage + 1;
   return getImages();
 }
 
@@ -27,44 +24,42 @@ export function resetPage() {
   currentPage = 1;
 }
 
-// Асинхронна функція для виконання API-запиту і отримання зображень
+// Функція, що виконує API-запит і отримує зображення
 export async function getImages() {
-  // Створюємо параметри запиту
-  const params = new URLSearchParams({
-    key: `${API_KEY}`,
-    q: `${searchQuery}`,
+  let params = {
+    key: API_KEY,
+    q: searchQuery,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
-    page: `${currentPage}`,
+    page: currentPage,
     per_page: 40,
-  });
+  };
 
-  // Виконуємо запит
   try {
-    const response = await axios.get(`${BASE_URL}?${params}`);
+    let response = await axios.get(BASE_URL, { params: params });
 
     total = response.data.total;
+
     if (firstSearch) {
       updateFirstSearch(false);
     }
 
-    // Перетворюємо відповідь в бажаний формат
-    let imagesData = response.data.hits.map(hit => ({
-      webformatURL: hit.webformatURL.replace('_640', '_340'),
-      largeImageURL: hit.largeImageURL,
-      tags: hit.tags,
-      views: hit.views,
-      comments: hit.comments,
-      downloads: hit.downloads,
-      likes: hit.likes,
-    }));
+    let imagesData = response.data.hits.map(hit => {
+      return {
+        webformatURL: hit.webformatURL.replace('_640', '_340'),
+        largeImageURL: hit.largeImageURL,
+        tags: hit.tags,
+        views: hit.views,
+        comments: hit.comments,
+        downloads: hit.downloads,
+        likes: hit.likes,
+      };
+    });
 
-    // Повертаємо дані
     return imagesData;
   } catch (error) {
-    // Якщо виникає помилка, показуємо повідомлення
-    Notify.failure(error.message);
+    Notify.failure('Помилка: ' + error.message);
   }
 }
 

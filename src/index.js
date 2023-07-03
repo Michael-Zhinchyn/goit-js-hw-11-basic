@@ -1,4 +1,4 @@
-// Підключаємо різні модулі та файлі для роботи з анімацією, lightbox та API
+// Імпорт необхідних модулів
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import {
@@ -12,102 +12,87 @@ import { createMarkup } from './js/markup';
 import { Notify } from 'notiflix';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 
-// Отримуємо доступ до елементів DOM
-const form = document.querySelector('#search-form');
-const gallery = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('.load-more');
+// Отримання доступу до елементів на сторінці
+let form = document.querySelector('#search-form');
+let gallery = document.querySelector('.gallery');
+let loadMoreBtn = document.querySelector('.load-more');
 
-// Спочатку приховуємо кнопку "Load more"
+// Приховуємо кнопку "Load More" на початку
 loadMoreBtn.style.display = 'none';
 
-// Додаємо обробник подій для форми
-form.addEventListener('submit', onSubmit);
-
-// Функція, яка запускається при відправці форми
-function onSubmit(evt) {
+// Додаємо слухач події до форми
+form.addEventListener('submit', function (evt) {
+  // Запобігаємо стандартній поведінці форми
   evt.preventDefault();
 
-  // Перевіряємо, чи поле вводу не порожнє
+  // Перевіряємо чи поле пошуку не порожнє
   if (evt.target.searchQuery.value === '') {
+    // Якщо поле пошуку порожнє, виводимо повідомлення
     Notify.warning('Input field is empty');
     return;
   }
 
-  // Задаємо запит для пошуку
+  // Задаємо пошуковий запит
   setSearchQuery(evt.target.searchQuery.value);
-
   // Скидаємо номер сторінки до 1
   resetPage();
-
   // Оновлюємо стан першого пошуку
   updateFirstSearch(true);
-
-  // Приховуємо кнопку "Load more" поки не отримаємо результати
+  // Приховуємо кнопку "Load More" доки не отримаємо результати
   loadMoreBtn.hidden = true;
+  // Очищуємо галерею
+  gallery.innerHTML = '';
 
-  // Отримуємо зображення з API
-  getImages().then(data => {
-    // Вставляємо отримані зображення в галерею
+  // Робимо запит на отримання зображень
+  getImages().then(function (data) {
+    // Перевіряємо чи отримали дані
+    if (data.length === 0) {
+      // Якщо даних немає, виводимо повідомлення
+      Notify.failure('Nothing found by Your request');
+      loadMoreBtn.style.display = 'none';
+      return;
+    }
+
+    // Додаємо отримані зображення до галереї
     gallery.insertAdjacentHTML('beforeend', createMarkup(data));
-
     // Ініціалізуємо lightbox
     new SimpleLightbox('.gallery a', {
       captionDelay: 200,
       captionsData: 'alt',
     });
 
-    // Показуємо кнопку "Load more"
+    // Показуємо кнопку "Load More"
     loadMoreBtn.hidden = false;
     loadMoreBtn.style.display = 'block';
   });
 
-  // Очищуємо поле вводу
+  // Очищуємо поле пошуку
   evt.target.searchQuery.value = '';
+});
 
-  // Очищуємо галерею
-  gallery.innerHTML = '';
-}
-
-// Додаємо обробник подій для кнопки "Load more"
-loadMoreBtn.addEventListener('click', onLoadMore);
-
-// Функція, яка запускається при натисканні кнопки "Load more"
-function onLoadMore() {
+// Додаємо слухач події до кнопки "Load More"
+loadMoreBtn.addEventListener('click', function () {
   // Завантажуємо наступну сторінку з результатами
-  nextPage().then(data => {
-    if (!data.length) {
+  nextPage().then(function (data) {
+    // Перевіряємо чи є дані
+    if (data.length === 0) {
+      // Якщо даних немає, виводимо повідомлення
       Report.info(
         "We're sorry",
         "but you've reached the end of search results.",
         'Okay'
       );
+      // Приховуємо кнопку "Load More"
       loadMoreBtn.hidden = true;
-    } else {
-      renderGallery(data);
+      return;
     }
+
+    // Додаємо отримані зображення до галереї
+    gallery.insertAdjacentHTML('beforeend', createMarkup(data));
+    // Ініціалізуємо lightbox
+    new SimpleLightbox('.gallery a', {
+      captionDelay: 200,
+      captionsData: 'alt',
+    });
   });
-}
-
-// Функція для додавання нових зображень в галерею
-function renderGallery(data) {
-  // Вставляємо отримані зображення в галерею
-  gallery.insertAdjacentHTML('beforeend', createMarkup(data));
-
-  // Ініціалізуємо lightbox для нових зображень
-  new SimpleLightbox('.gallery a', {
-    captionDelay: 200,
-    captionsData: 'alt',
-  });
-}
-
-// При завантаженні сторінки
-window.onload = function () {
-  // Перевіряємо, чи сторінка була перезавантажена
-  if (performance.getEntriesByType('navigation')[0].type === 'reload') {
-    // Якщо сторінка була перезавантажена, перевіряємо, чи є URL в localStorage
-    if (localStorage.getItem('previousPage')) {
-      // Якщо є URL в localStorage, перенаправляємо користувача на цю сторінку
-      window.location.href = localStorage.getItem('previousPage');
-    }
-  }
-};
+});
